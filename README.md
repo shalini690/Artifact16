@@ -23,6 +23,16 @@ node server.js
 
 The server listens on the port from the `PORT` environment variable, defaulting to `3000`.
 
+## Test
+
+```bash
+npm test
+# or directly:
+node --test
+```
+
+Runs the regression and security smoke tests in `tests/` using Node's built-in test runner (no extra dependencies). They assert that `GET /` returns `Hello world`, that `GET /good-evening` returns `Good evening`, and that the `x-powered-by` header is absent.
+
 ## Endpoints
 
 | Method | Path            | Response       |

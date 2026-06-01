@@ -4,7 +4,8 @@
   "description": "Node.js Express tutorial server exposing GET / (Hello world) and GET /good-evening (Good evening).",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node --test"
   },
   "engines": {
     "node": ">=22 <23 || >=24 <25"

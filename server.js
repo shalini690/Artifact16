@@ -14,6 +14,12 @@
  *     (CVE-2024-45590) is not reachable.
  *   - No custom error handler is added; Express 5's default handler does not
  *     leak stack traces to clients.
+ *
+ * Module shape:
+ *   - Exports the configured Express `app` (module.exports) so it can be
+ *     imported in-process by the test suite without binding a port.
+ *   - Binds a listening port only when run directly (require.main === module),
+ *     so `node server.js` / `npm start` behavior is unchanged.
  */
 
 'use strict';
@@ -38,6 +44,17 @@ app.get('/good-evening', (req, res) => {
 
 // Bind to the configured port (PORT environment variable) or fall back to 3000.
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+
+// Only bind a port when this file is executed directly (e.g. `node server.js`
+// or `npm start`). When the module is require()'d (e.g. by tests/server.test.js),
+// the configured app is exported WITHOUT auto-binding, allowing callers to
+// listen on an ephemeral port and tear it down cleanly. The runtime behavior of
+// the entry point is therefore unchanged.
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+}
+
+// Export the configured Express app for in-process testing and reuse.
+module.exports = app;
