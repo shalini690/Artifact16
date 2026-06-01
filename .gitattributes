@@ -1,0 +1,4 @@
+# Runtime version pin files must stay LF-only so Node version managers
+# (nvm / fnm / nodenv) parse them correctly on every platform.
+.nvmrc text eol=lf
+.node-version text eol=lf
