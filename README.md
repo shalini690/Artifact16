@@ -4,7 +4,7 @@ A minimal Node.js tutorial server built with Express.js, exposing two `GET` endp
 
 ## Requirements
 
-- Node.js — a supported LTS release only (>= 18 required, per `engines.node`; Node 24 LTS recommended)
+- Node.js — a supported LTS release only: Node 22.x (Maintenance LTS) or Node 24.x (Active LTS, recommended). This is enforced via `engines.node` (`>=22 <23 || >=24 <25`), which excludes end-of-life lines such as Node 18 and 20.
 - npm (bundled with Node.js)
 
 ## Install
